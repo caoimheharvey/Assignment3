@@ -5,51 +5,17 @@
     android:layout_height="match_parent"
     tools:context="dit.assignment3.MainActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Timer"
+        android:id="@+id/timerButton"
+        android:background="#a7c46172"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/bg3"
-        android:scaleType="fitXY" />
+        android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:text="Timer"
-            android:layout_marginTop="90dp"
-            android:id="@+id/timerButton"
-            android:background="#a7c46172"
-            android:textColor="#ffffff"
-            android:textSize="20dp"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:text="Pomodoro"
-            android:layout_marginTop="90dp"
-            android:id="@+id/pomoButton"
-            android:background="#b890a5e2"
-            android:textColor="#ffffff"
-            android:textSize="20dp"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="90dp"
-            android:text="to do list"
-            android:id="@+id/tdlButton"
-            android:background="#cb378eb6"
-            android:textColor="#ffffff"
-            android:textSize="20dp"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
 </RelativeLayout>

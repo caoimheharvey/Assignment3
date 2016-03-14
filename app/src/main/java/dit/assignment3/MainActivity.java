@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button timerBtn = (Button) findViewById(R.id.timerButton);
-        Button pomodoroBtn = (Button) findViewById(R.id.pomoButton);
+        //Button pomodoroBtn = (Button) findViewById(R.id.pomoButton);
 
         timerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void next(){
         Intent intent = new Intent(this, Timer.class);
-
         startActivity(intent);
     }
 }
