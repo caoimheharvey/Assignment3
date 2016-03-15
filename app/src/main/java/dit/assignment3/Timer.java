@@ -58,6 +58,9 @@ public class Timer extends AppCompatActivity {
                 timer.cancel();
             }
         });
+
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -119,7 +122,7 @@ public class Timer extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             long millis = millisUntilFinished;
-            String hrsminsec = String.format("%02:%02:%02", TimeUnit.MILLISECONDS.toHours(millis),
+            String hrsminsec = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                     TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toMinutes(millis)),
                     TimeUnit.MILLISECONDS.toSeconds(millis - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toSeconds(millis)))
             );
