@@ -18,13 +18,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Timer extends AppCompatActivity {
     //declaring all items on page in class
-    //EditText hoursIn = (EditText) findViewById(R.id.hoursET);
-    //EditText minIn = (EditText) findViewById(R.id.minET);
-
-    Button start = (Button) findViewById(R.id.startButton);
-    Button stop = (Button) findViewById(R.id.stopButton);
-
-    TextView textViewTime = (TextView) findViewById(R.id.timeDisp);
+    EditText hoursIn, minIn;
+    Button start, stop;
+    TextView textViewTime;
 
 
     /**
@@ -37,6 +33,13 @@ public class Timer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
+
+        //initiallizing declared variables
+        hoursIn = (EditText) findViewById(R.id.hoursET);
+        minIn = (EditText) findViewById(R.id.minET);
+        start = (Button) findViewById(R.id.startButton);
+        stop = (Button) findViewById(R.id.stopButton);
+        textViewTime = (TextView) findViewById(R.id.timeDisp);
 
         textViewTime.setText("00:00:30");
 
