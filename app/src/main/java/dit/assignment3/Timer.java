@@ -21,13 +21,7 @@ public class Timer extends AppCompatActivity {
     EditText hoursIn, minIn;
     Button start, stop;
     TextView textViewTime;
-
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-   // private GoogleApiClient client;
+    int minutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +35,10 @@ public class Timer extends AppCompatActivity {
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
 
-        textViewTime.setText("00:00:30");
+
+        minutes = Integer.parseInt(String.valueOf(minIn)) * 1000;
+
+        textViewTime.setText("00:%02d:00", minIn);
 
         final CounterClass timer = new CounterClass(30000, 1000);
         start.setOnClickListener(new View.OnClickListener() {
@@ -60,11 +57,12 @@ public class Timer extends AppCompatActivity {
         });
 
 
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
+
 
     //@Override
     /*public void onStart() {
