@@ -17,6 +17,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="myClickHandler"
         android:text="Start"
         android:id="@+id/startButton"
         android:background="#7dffffff"
@@ -100,7 +101,8 @@
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/minET"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:text="1" />
 
 
         </TableRow>

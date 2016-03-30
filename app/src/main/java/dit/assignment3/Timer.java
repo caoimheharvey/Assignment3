@@ -4,10 +4,12 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
@@ -33,21 +35,38 @@ public class Timer extends AppCompatActivity {
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
 
-        inHr = Integer.parseInt(hoursIn.getText().toString());
-        inMin = Integer.parseInt(minIn.getText().toString());
+       // inHr = Integer.parseInt(hoursIn.getText().toString());
+       // inMin = Integer.parseInt(minIn.getText().toString());
 
-        hoursMs = hrsToMs(inHr);
-        minMs = minToMs(inMin);
-        totalTime = hoursMs + minMs;
+       // hoursMs = hrsToMs(inHr);
+       // minMs = minToMs(inMin);
+       // totalTime = hoursMs + minMs;
 
-        //temp start time
-        textViewTime.setText("TIME");
+        //temp start text
+        textViewTime.setText("00:00:30");
 
         //counter class below -> new CounterClass(time, interval)
         final CounterClass timer = new CounterClass(totalTime, 1000);
         start.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                if (hoursIn != null)
+                {
+                    inHr = Integer.parseInt(hoursIn.getText().toString());
+                    hoursMs = hrsToMs(inHr);
+
+                }
+                if (minIn != null)
+                {
+                    inMin = Integer.parseInt(minIn.getText().toString());
+                    minMs = minToMs(inMin);
+                }
+                else
+                {
+                    textViewTime.setText("PLEASE GIVE A TIME");
+                }
+                totalTime = hoursMs + minMs;
                 timer.start();
             }
         });
@@ -62,6 +81,7 @@ public class Timer extends AppCompatActivity {
 
 
     }
+
 
     private int hrsToMs(int hours)
     {
@@ -115,6 +135,4 @@ public class Timer extends AppCompatActivity {
             textViewTime.setText("DONE");
         }
     }
-
-
 }
