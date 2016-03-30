@@ -51,13 +51,13 @@ public class Timer extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (hoursIn != null)
+                if (! hoursIn.getText().toString().isEmpty())
                 {
                     inHr = Integer.parseInt(hoursIn.getText().toString());
                     hoursMs = hrsToMs(inHr);
 
                 }
-                if (minIn != null)
+                if (! minIn.getText().toString().isEmpty())
                 {
                     inMin = Integer.parseInt(minIn.getText().toString());
                     minMs = minToMs(inMin);
