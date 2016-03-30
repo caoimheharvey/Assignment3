@@ -33,12 +33,12 @@ public class Timer extends AppCompatActivity {
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
 
-        inHr = Integer.parseInt(String.valueOf(hoursIn));
-        inMin = Integer.parseInt(String.valueOf(minIn));
+        inHr = Integer.parseInt(hoursIn.getText().toString());
+        inMin = Integer.parseInt(minIn.getText().toString());
 
         hoursMs = hrsToMs(inHr);
         minMs = minToMs(inMin);
-        totalTime = hoursMs * minMs;
+        totalTime = hoursMs + minMs;
 
         //temp start time
         textViewTime.setText("TIME");
