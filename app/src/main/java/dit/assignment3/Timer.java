@@ -17,6 +17,9 @@ public class Timer extends AppCompatActivity {
     EditText hoursIn, minIn;
     Button start, stop;
     TextView textViewTime;
+    int totalTime;
+    int inHr, inMin;
+    int hoursMs, minMs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +27,24 @@ public class Timer extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
 
         //initiallizing declared variables
-       // hoursIn = (EditText) findViewById(R.id.hoursET);
-        //minIn = (EditText) findViewById(R.id.minET);
+        hoursIn = (EditText) findViewById(R.id.hoursET);
+        minIn = (EditText) findViewById(R.id.minET);
         start = (Button) findViewById(R.id.startButton);
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
 
+        inHr = Integer.parseInt(String.valueOf(hoursIn));
+        inMin = Integer.parseInt(String.valueOf(minIn));
 
+        hoursMs = hrsToMs(inHr);
+        minMs = minToMs(inMin);
+        totalTime = hoursMs * minMs;
 
-        textViewTime.setText("00:00:30");
+        //temp start time
+        textViewTime.setText("TIME");
 
-        final CounterClass timer = new CounterClass(30000, 1000);
+        //counter class below -> new CounterClass(time, interval)
+        final CounterClass timer = new CounterClass(totalTime, 1000);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,9 +61,28 @@ public class Timer extends AppCompatActivity {
         });
 
 
-
     }
 
+    private int hrsToMs(int hours)
+    {
+        //site for conversions:
+        //http://amsi.org.au/teacher_modules/D0/D0g2.png
+
+        int minutes = hours * 60;
+        int seconds = minutes * 60;
+        int millis = seconds * 1000;
+        return  millis;
+    }
+
+    private int minToMs(int min)
+    {
+        //site for conversions:
+        //http://amsi.org.au/teacher_modules/D0/D0g2.png
+
+        int seconds = min * 60;
+        int millis = seconds * 1000;
+        return  millis;
+    }
 
 
     public class CounterClass extends CountDownTimer {
@@ -71,6 +100,7 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
+            //every tick
             long millis = millisUntilFinished;
             String hrsminsec = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                     TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toMinutes(millis)),

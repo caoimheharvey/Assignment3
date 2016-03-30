@@ -43,13 +43,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginBottom="104dp"
         android:layout_above="@+id/startButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/tableLayout">
 
         <TableRow
             android:padding="20dp"
@@ -64,6 +67,14 @@
                 android:text="Hours: "
                 android:id="@+id/hoursLabel"
                 android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/hoursET"
+                android:layout_column="1" />
 
         </TableRow>
 
@@ -83,6 +94,15 @@
                 android:id="@+id/minutesLabel"
                 android:layout_column="0" />
 
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/minET"
+                android:layout_column="1" />
+
+
         </TableRow>
 
     </TableLayout>
@@ -98,5 +118,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="38dp"
         android:background="#99ffffff" />
+
+
 
 </RelativeLayout>
