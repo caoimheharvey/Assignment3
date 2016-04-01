@@ -1,5 +1,6 @@
 package dit.assignment3;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -43,19 +44,24 @@ public class Timer extends AppCompatActivity {
        // totalTime = hoursMs + minMs;
 
         //temp start text
-        textViewTime.setText("00:00:30");
+        textViewTime.setText("Press Start");
 
         //counter class below -> new CounterClass(time, interval)
-        final CounterClass timer = new CounterClass(totalTime, 1000);
+        final CounterClass[] timer = {new CounterClass(totalTime, 1000)};
         start.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
                 if (! hoursIn.getText().toString().isEmpty())
                 {
                     inHr = Integer.parseInt(hoursIn.getText().toString());
                     hoursMs = hrsToMs(inHr);
 
+                }
+                else
+                {
+                    hoursMs = 0;
                 }
                 if (! minIn.getText().toString().isEmpty())
                 {
@@ -64,10 +70,24 @@ public class Timer extends AppCompatActivity {
                 }
                 else
                 {
-                    textViewTime.setText("PLEASE GIVE A TIME");
+                    minMs = 0;
                 }
                 totalTime = hoursMs + minMs;
-                timer.start();
+                //checking if user has input time for the timer and displaying appropiate message
+                if(totalTime == 0)
+                {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Time input needed";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+                else
+                {
+                    timer[0] = new CounterClass(totalTime, 1000);
+                    timer[0].start();
+                }
             }
         });
 
@@ -75,7 +95,7 @@ public class Timer extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timer.cancel();
+                timer[0].cancel();
             }
         });
 
@@ -94,7 +114,7 @@ public class Timer extends AppCompatActivity {
         return  millis;
     }
 
-    private int minToMs(int min)
+    public int minToMs(int min)
     {
         //site for conversions:
         //http://amsi.org.au/teacher_modules/D0/D0g2.png
