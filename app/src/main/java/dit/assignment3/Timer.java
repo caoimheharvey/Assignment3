@@ -1,6 +1,7 @@
 package dit.assignment3;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class Timer extends AppCompatActivity {
+
+    MediaPlayer alarmSound;
     //declaring all items on page in class
     EditText hoursIn, minIn;
     Button start, stop;
@@ -29,6 +32,7 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        alarmSound = MediaPlayer.create(this, R.raw.alarm_noise);
         //initiallizing declared variables
         hoursIn = (EditText) findViewById(R.id.hoursET);
         minIn = (EditText) findViewById(R.id.minET);
@@ -36,17 +40,11 @@ public class Timer extends AppCompatActivity {
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
 
-       // inHr = Integer.parseInt(hoursIn.getText().toString());
-       // inMin = Integer.parseInt(minIn.getText().toString());
-
-       // hoursMs = hrsToMs(inHr);
-       // minMs = minToMs(inMin);
-       // totalTime = hoursMs + minMs;
-
         //temp start text
-        textViewTime.setText("Press Start");
+        textViewTime.setText("Text-TEXT-text");
 
         //counter class below -> new CounterClass(time, interval)
+        // in array format due to nature of totalTime initialization
         final CounterClass[] timer = {new CounterClass(totalTime, 1000)};
         start.setOnClickListener(new View.OnClickListener() {
 
@@ -153,6 +151,7 @@ public class Timer extends AppCompatActivity {
         @Override
         public void onFinish() {
             textViewTime.setText("DONE");
+            alarmSound.start();
         }
     }
 }
