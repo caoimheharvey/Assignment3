@@ -41,7 +41,7 @@ public class Timer extends AppCompatActivity {
         textViewTime = (TextView) findViewById(R.id.timeDisp);
 
         //temp start text
-        textViewTime.setText("Text-TEXT-text");
+        textViewTime.setText("No button Pressed");
 
         //counter class below -> new CounterClass(time, interval)
         // in array format due to nature of totalTime initialization
@@ -55,7 +55,6 @@ public class Timer extends AppCompatActivity {
                 {
                     inHr = Integer.parseInt(hoursIn.getText().toString());
                     hoursMs = hrsToMs(inHr);
-
                 }
                 else
                 {
@@ -74,12 +73,7 @@ public class Timer extends AppCompatActivity {
                 //checking if user has input time for the timer and displaying appropiate message
                 if(totalTime == 0)
                 {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Time input needed";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    Toast.makeText(Timer.this, "ENTER TIME", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -112,7 +106,7 @@ public class Timer extends AppCompatActivity {
         return  millis;
     }
 
-    public int minToMs(int min)
+    private int minToMs(int min)
     {
         //site for conversions:
         //http://amsi.org.au/teacher_modules/D0/D0g2.png
@@ -150,8 +144,9 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            textViewTime.setText("DONE");
+            textViewTime.setText("00:00:00");
             alarmSound.start();
+
         }
     }
 }
