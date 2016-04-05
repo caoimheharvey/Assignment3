@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +23,20 @@ import java.util.concurrent.TimeUnit;
 
 public class Timer extends AppCompatActivity {
 
-    MediaPlayer alarmSound;
     //declaring all items on page in class
+    //sound player
+    MediaPlayer alarmSound;
+
+    //data from XML file
     EditText hoursIn, minIn;
-    Button start, stop;
+    Button start, stop, stopSoundBtn;
     TextView textViewTime;
     int totalTime;
     int inHr, inMin;
     int hoursMs, minMs;
+    TableLayout table;
+
+    //notification
     public NotificationCompat.Builder mBuilder;
     private Intent resultAction;
     PendingIntent resultPendingIntent;
@@ -47,10 +54,9 @@ public class Timer extends AppCompatActivity {
 
         //notification
         mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.small_icon)
-                .setContentTitle("My notification").setContentText("Hello World!");
+                .setContentTitle("TimerApp").setContentText("Your Timer is done!");
 
         mBuilder.setContentIntent(resultPendingIntent);
-
 
         //playing the alarm sound
         alarmSound = MediaPlayer.create(this, R.raw.alarm_noise);
@@ -61,6 +67,12 @@ public class Timer extends AppCompatActivity {
         start = (Button) findViewById(R.id.startButton);
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
+        table = (TableLayout) findViewById(R.id.tableDisp);
+        stopSoundBtn = (Button) findViewById(R.id.stopSoundButton);
+
+        //hiding
+        textViewTime.setVisibility(View.GONE);
+        stopSoundBtn.setVisibility(View.GONE);
 
         //counter class below -> new CounterClass(time, interval)
         // in array format due to nature of totalTime initialization
@@ -97,7 +109,9 @@ public class Timer extends AppCompatActivity {
                 else
                 {
                     timer[0] = new CounterClass(totalTime, 1000);
+                    textViewTime.setVisibility(View.VISIBLE);
                     timer[0].start();
+                    table.setVisibility(View.GONE);
                 }
             }
         });
@@ -106,6 +120,8 @@ public class Timer extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                table.setVisibility(View.VISIBLE);
+                textViewTime.setVisibility(View.GONE);
                 timer[0].cancel();
             }
         });
@@ -172,8 +188,22 @@ public class Timer extends AppCompatActivity {
             // Builds the notification and issues it.
             mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
-            textViewTime.setText("00:00:00");
+            //changing visibility settings
+            table.setVisibility(View.VISIBLE);
+            stopSoundBtn.setVisibility(View.VISIBLE);
+            textViewTime.setVisibility(View.GONE);
+
             alarmSound.start();
+
+            //gets timer to stop once button is clicked
+            //only accesible once timer finishes
+            stopSoundBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alarmSound.stop();
+                }
+            });
+
         }
     }
 }

@@ -2,6 +2,7 @@ package dit.assignment3;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
         // Remember that you should never show the action bar if the
 
-        Button timerBtn = (Button) findViewById(R.id.timerButton);
+        final Button timerBtn = (Button) findViewById(R.id.timerButton);
         //Button pomodoroBtn = (Button) findViewById(R.id.pomoButton);
 
         timerBtn.setOnClickListener(new View.OnClickListener() {
