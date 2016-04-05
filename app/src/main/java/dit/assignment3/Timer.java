@@ -1,9 +1,13 @@
 package dit.assignment3;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,22 +30,37 @@ public class Timer extends AppCompatActivity {
     int totalTime;
     int inHr, inMin;
     int hoursMs, minMs;
+    public NotificationCompat.Builder mBuilder;
+    private Intent resultAction;
+    PendingIntent resultPendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        //intent to act on the notification to leave it null
+        resultAction = new Intent(this, Timer.class);
+
+        //pendingIntent.getActivity(Context, int, Intent, int)
+        resultPendingIntent = PendingIntent.getActivity(this, 0, resultAction, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //notification
+        mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.small_icon)
+                .setContentTitle("My notification").setContentText("Hello World!");
+
+        mBuilder.setContentIntent(resultPendingIntent);
+
+
+        //playing the alarm sound
         alarmSound = MediaPlayer.create(this, R.raw.alarm_noise);
+
         //initiallizing declared variables
         hoursIn = (EditText) findViewById(R.id.hoursET);
         minIn = (EditText) findViewById(R.id.minET);
         start = (Button) findViewById(R.id.startButton);
         stop = (Button) findViewById(R.id.stopButton);
         textViewTime = (TextView) findViewById(R.id.timeDisp);
-
-        //temp start text
-        textViewTime.setText("No button Pressed");
 
         //counter class below -> new CounterClass(time, interval)
         // in array format due to nature of totalTime initialization
@@ -144,9 +163,17 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onFinish() {
+
+            // Sets an ID for the notification
+            int mNotificationId = 001;
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
             textViewTime.setText("00:00:00");
             alarmSound.start();
-
         }
     }
 }
