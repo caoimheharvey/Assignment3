@@ -23,9 +23,8 @@ public class MainActivity extends AppCompatActivity {
     //small button minutes
     Button ten, twenty, thirty, sixty;
 
-    Button startBtn, stopBtn;
+    Button startBtn;
     EditText minIn, hoursIn;
-    int timeInt;
     int minMs, hoursMs;
 
     //additional variables to make timer work
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         sixty = (Button) findViewById(R.id.sixtyMin);
 
         startBtn = (Button) findViewById(R.id.startButton);
-        stopBtn = (Button) findViewById(R.id.stopButton);
 
         hoursIn = (EditText) findViewById(R.id.hoursInput);
         minIn = (EditText) findViewById(R.id.minsInput);
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         ten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                minIn.setText("10");
+                minIn.setText("01");
             }
         });
         twenty.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 if (! hoursIn.getText().toString().isEmpty())
                 {
-                    timeInt = Integer.parseInt(hoursIn.getText().toString());
-                    hoursMs = hrsToMs(timeInt);
+                    int intTime = Integer.parseInt(hoursIn.getText().toString());
+                    hoursMs = hrsToMils(intTime);
                 }
                 else
                 {
@@ -95,45 +92,49 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (! minIn.getText().toString().isEmpty())
                 {
-                    timeInt = Integer.parseInt(minIn.getText().toString());
-                    minMs = minToMs(timeInt);
+                    int intTime = Integer.parseInt(minIn.getText().toString());
+                    minMs = minToMils(intTime);
                 }
                 else
                 {
                     minMs = 0;
                 }
-                totalTime = hoursMs + minMs;
-                //checking if user has input time for the timer and displaying appropiate message
-                if(totalTime == 0)
+
+                totalTime = minMs + hoursMs;
+
+                if (totalTime == 0)
                 {
                     Toast.makeText(MainActivity.this, "ENTER TIME", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Intent nextPage = new Intent();
+                    nextPage();
                 }
+
+
             }
         });
+    }
 
-        private int hrsToMs(int hours)
-        {
-            //site for conversions:
-            //http://amsi.org.au/teacher_modules/D0/D0g2.png
+    private int hrsToMils(int hours)
+    {
+        int minutes = hours * 60;
+        int seconds = minutes * 60;
+        int millis = seconds * 1000;
+        return  millis;
+    }
 
-            int minutes = hours * 60;
-            int seconds = minutes * 60;
-            int millis = seconds * 1000;
-            return  millis;
-        }
+    private  int minToMils(int mins)
+    {
+        int seconds = mins * 60;
+        int millis = seconds * 1000;
+        return  millis;
+    }
 
-        private int minToMs(int min)
-        {
-            //site for conversions:
-            //http://amsi.org.au/teacher_modules/D0/D0g2.png
-
-            int seconds = min * 60;
-            int millis = seconds * 1000;
-            return  millis;
-        }
+    private void nextPage()
+    {
+        Intent intent = new Intent(this, Timer.class).putExtra("totalTime", totalTime);
+        startActivity(intent);
     }
 }
+

@@ -16,16 +16,6 @@
         android:src="@drawable/bg3"
         android:scaleType="fitXY" />
 <!-- STOP BUTTON-->
-    <Button
-        android:layout_width="175dp"
-        android:layout_height="70dp"
-        android:text="STOP"
-        android:textSize="26sp"
-        android:id="@+id/stopButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-    />
 
     <!-- START BUTTON-->
 
@@ -37,7 +27,9 @@
         android:id="@+id/startButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <!-- MiniMinute BUTTON-->
 
@@ -46,7 +38,6 @@
         android:layout_height="match_parent"
         android:padding="10dp"
         android:layout_marginTop="50dp"
-        android:layout_above="@+id/stopButton"
         android:layout_alignRight="@+id/startButton"
         android:layout_alignEnd="@+id/startButton"
         android:layout_alignParentEnd="false"
