@@ -1,47 +1,60 @@
 package dit.assignment3;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.concurrent.TimeUnit;
-
-
-/*
- * IN PROCESS OF SPLITTING CODE INTO TWO (OR MORE) CLASSES
- */
 
 public class Timer extends AppCompatActivity {
 
-    //declaring all items on page in class
-    //sound player
-    MediaPlayer alarmSound;
-
-    //data from XML file
-    Button stop, stopSoundBtn;
-    TextView textViewTime;
-
-
+    long totalTimeMs;
+    TextView timeDisp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_timer);
 
-        Bundle data = getIntent().getExtras();
-        int totalTime = data.getInt("totalTime");
-        textViewTime.setText(totalTime);
+        timeDisp = (TextView) findViewById(R.id.timeView);
+
+        Bundle time = getIntent().getExtras();
+
+        if(time == null)
+        {
+            timeDisp.setText("nope");
+        }
+        else
+        {
+            timeDisp.setText("YASSSS");
+        }
 
 
+        final CounterClass timer = new CounterClass(30000, 1000);
+        timer.start();
     }
 
+    public class CounterClass extends CountDownTimer {
 
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public CounterClass(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
 }

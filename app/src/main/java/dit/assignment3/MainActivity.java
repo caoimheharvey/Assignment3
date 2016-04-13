@@ -52,18 +52,21 @@ public class MainActivity extends AppCompatActivity {
         ten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hoursIn.setText("00");
                 minIn.setText("01");
             }
         });
         twenty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hoursIn.setText("00");
                 minIn.setText("20");
             }
         });
         thirty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hoursIn.setText("00");
                 minIn.setText("30");
             }
         });

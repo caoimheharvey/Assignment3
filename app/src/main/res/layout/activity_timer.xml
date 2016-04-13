@@ -3,54 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dit.assignment3.Timer"
-    android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
-
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/bg3"
-        android:scaleType="fitXY" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CANCEL"
-        android:id="@+id/stopButton"
-        android:background="#7dffffff"
-        android:textSize="20sp"
-        android:textColor="#c60000"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp" />
-
+    tools:context="dit.assignment3.Timer">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:id="@+id/timeDisp"
-        android:background="#9dffffff"
-        android:textColor="#000000"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="176dp" />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STOP SOUND"
-        android:id="@+id/stopSoundButton"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/timeDisp"
-        android:layout_centerHorizontal="true" />
-
-
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/timeView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="127dp" />
 </RelativeLayout>
