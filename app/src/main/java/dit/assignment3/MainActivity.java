@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int minMs, hoursMs;
 
     //additional variables to make timer work
-    long totalTime;
+    public int totalTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     nextPage();
                 }
-
-
             }
         });
     }
