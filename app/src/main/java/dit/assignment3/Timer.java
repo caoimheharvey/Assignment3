@@ -1,16 +1,17 @@
 package dit.assignment3;
 
-import android.app.PendingIntent;
-import android.content.Intent;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -19,29 +20,19 @@ import java.util.concurrent.TimeUnit;
  */
 public class Timer extends AppCompatActivity {
 
+    //Media Player
+    MediaPlayer alarmSound;
+
     int totalTimeMs;
     TextView timeDisp;
     Button cancelBtn;
-
-    /* Notification
-    public NotificationCompat.Builder mBuilder;
-     private Intent resultAction; 
-    PendingIntent resultPendingIntent;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-       /* //intent to act on the notification to leave it null
-         resultAction = new Intent(this, MainActivity.class);  
-        //pendingIntent.getActivity(Context, int, Intent, int) 
-        resultPendingIntent = PendingIntent.getActivity(this, 0, resultAction, PendingIntent.FLAG_UPDATE_CURRENT);  
-        //notification 
-        mBuilder =  new NotificationCompat.Builder(this).setSmallIcon(R.drawable.small_icon) ;
-        mBuilder.setContentTitle("TimerApp").setContentText("DONE");
-        mBuilder.setContentIntent(resultPendingIntent);*/
-
+        alarmSound = MediaPlayer.create(this, R.raw.alarm_noise);
 
         timeDisp = (TextView) findViewById(R.id.timeView);
         cancelBtn = (Button)findViewById(R.id.cancelButton);
@@ -60,7 +51,7 @@ public class Timer extends AppCompatActivity {
         }
 
 
-        final CounterClass timer = new CounterClass(120000, 1000);
+        final CounterClass timer = new CounterClass(60000, 1000);
         timer.start();
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +85,7 @@ public class Timer extends AppCompatActivity {
             String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
-                    /*TimeUnit.MILLISECONDS.toHours(millisUntilFinished), 
-                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)), 
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)))
-            );*/
+
 
             timeDisp.setText(hms);
         }
@@ -105,6 +93,33 @@ public class Timer extends AppCompatActivity {
         @Override
         public void onFinish() {
             timeDisp.setText("Completed.");
+            DoneAlert done = new DoneAlert();
+            //done.show();
+            alarmSound.start();
+        }
+    }
+
+    /*
+     *  Alert Dialog
+     */
+    public class DoneAlert extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("TEST")
+                    .setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    })
+                    .setNegativeButton("SNOOZE", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
         }
     }
 }

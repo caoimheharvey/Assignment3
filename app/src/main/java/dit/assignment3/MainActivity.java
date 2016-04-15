@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void nextPage()
     {
-        Intent intent = new Intent(this, Timer.class).putExtra("totalTime", totalTime);
+        Intent intent = new Intent(this, Timer.class);//.putExtra("totalTime", totalTime);
         startActivity(intent);
     }
 }
