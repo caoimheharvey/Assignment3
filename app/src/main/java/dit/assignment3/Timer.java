@@ -20,8 +20,6 @@ import android.widget.Toast;
 import java.util.concurrent.TimeUnit;
 
 /*
- * TODO: Notifications
- * TODO: ALERT DIALOG
  * TODO: get the timer to appear right
  */
 
@@ -31,21 +29,14 @@ public class Timer extends AppCompatActivity {
     MediaPlayer alarmSound;
 
     Button ten, twenty, thirty, sixty;
-    Button startBtn, cancelBtn;
+    private Button startBtn, cancelBtn;
     EditText minIn, hoursIn;
     TableLayout table1, table2;
 
     TextView timeDisp;
     //additional variables to make timer work
     int minMs, hoursMs;
-    public int totalTime;
-
-/*
-    Notification
- */
-    NotificationCompat.Builder mBuilder;
-    Intent resultIntent;
-    PendingIntent resultPendingIntent;
+    int totalTime;
 
     // Alert Dialog
     AlertDialog.Builder a_builder;
@@ -55,24 +46,11 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-        //Notification
-        /*
-        mBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("Timer App").setContentText("DONE");
-        resultIntent = new Intent(this, Main_Activity.class);
-        resultPendingIntent =
-                PendingIntent.getActivity(
-                        this, 0 , resultIntent, PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-*/
-        //Alert Dialog
         /*
             Alert Dialog
              */
         a_builder = new AlertDialog.Builder(Timer.this);
-        a_builder.setMessage("Your Timer is Done")
-                .setCancelable(false)
+        a_builder.setCancelable(false)
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -81,8 +59,6 @@ public class Timer extends AppCompatActivity {
                     }
                 });
 
-        //media
-        alarmSound = MediaPlayer.create(this, R.raw.alarm_noise);
 
         /*
          * Declaring countdown timer
@@ -137,15 +113,21 @@ public class Timer extends AppCompatActivity {
             }
         });
 
+
         //start button working
         startBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if (! hoursIn.getText().toString().isEmpty())
                 {
                     int intTime = Integer.parseInt(hoursIn.getText().toString());
-                    hoursMs = hrsToMils(intTime);
+                    if(intTime > 11 || intTime < 0)
+                    {
+                        Toast.makeText(Timer.this, "Hours must be between 0 and 11", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        hoursMs = hrsToMils(intTime);
+                    }
                 }
                 else
                 {
@@ -154,7 +136,13 @@ public class Timer extends AppCompatActivity {
                 if (! minIn.getText().toString().isEmpty())
                 {
                     int intTime = Integer.parseInt(minIn.getText().toString());
-                    minMs = minToMils(intTime);
+                    if(intTime > 59 || intTime < 0)
+                    {
+                        Toast.makeText(Timer.this, "Minutes must be between 0 and 59", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        minMs = minToMils(intTime);
+                    }
                 }
                 else
                 {
@@ -180,7 +168,7 @@ public class Timer extends AppCompatActivity {
                     timeDisp.setVisibility(View.VISIBLE);
 
                     //start timer
-                    timer[0] = new CounterClass(3000, 1000);
+                    timer[0] = new CounterClass(totalTime, 1000);
                     timer[0].start();
                 }
             }
@@ -219,7 +207,7 @@ public class Timer extends AppCompatActivity {
     }
 
 
-    public class CounterClass extends CountDownTimer {
+    private class CounterClass extends CountDownTimer {
 
         /**
          * @param millisInFuture    The number of millis in the future from the call
@@ -234,7 +222,8 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+            String hms = String.format("%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
 
@@ -243,6 +232,9 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onFinish() {
+            alarmSound = MediaPlayer.create(Timer.this, R.raw.alarm_noise);
+            alarmSound.start();
+
             table1.setVisibility(View.VISIBLE);
             table2.setVisibility(View.VISIBLE);
 
@@ -250,32 +242,9 @@ public class Timer extends AppCompatActivity {
             startBtn.setVisibility(View.VISIBLE);
             cancelBtn.setVisibility(View.GONE);
             timeDisp.setVisibility(View.GONE);
-            alarmSound.start();
 
-            //Notification Issue
-           /* int notificationID = 001;
-            //gets an instance of the notification manager service
-            NotificationManager notifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            //builds notification to issue it
-            notifyMgr.notify(notificationID, mBuilder.build());*/
-
-            /*
-            Alert Dialog
-
-            AlertDialog.Builder a_builder = new AlertDialog.Builder(Timer.this);
-            a_builder.setMessage("Your Timer is Done")
-                    .setCancelable(false)
-                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            alarmSound.stop();
-                            dialog.dismiss();
-                        }
-                    }
-                    );
-                    */
             AlertDialog alert = a_builder.create();
-            alert.setTitle("TimerAlert");
+            alert.setTitle("Your Timer is DONE");
             alert.show();
         }
     }
