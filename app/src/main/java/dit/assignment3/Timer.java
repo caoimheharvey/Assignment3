@@ -38,6 +38,12 @@ public class Timer extends AppCompatActivity {
     int minMs, hoursMs;
     int totalTime;
 
+    NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.small_icon)
+                    .setContentTitle("My notification")
+                    .setContentText("Hello World!");
+
     // Alert Dialog
     AlertDialog.Builder a_builder;
 
@@ -46,9 +52,19 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        Intent resultIntent = new Intent(this, Main_Activity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+
         /*
-            Alert Dialog
-             */
+          Alert Dialog
+        */
         a_builder = new AlertDialog.Builder(Timer.this);
         a_builder.setCancelable(false)
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -241,10 +257,6 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            /*String hms = String.format("%02d:%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));*/
             int hours   = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
 
             timeDisp.setText(""+String.format("%02d:%02d:%02d", hours,
@@ -269,6 +281,14 @@ public class Timer extends AppCompatActivity {
             AlertDialog alert = a_builder.create();
             alert.setTitle("Your Timer is DONE");
             alert.show();
+
+            // Sets an ID for the notification
+            int mNotificationId = 001;
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
         }
     }
 }

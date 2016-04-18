@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment3</string>
+    <string name="app_name">Study Timer</string>
     <string name="pomodoro_story">
         The Pomodoro Technique is a time management method created by Francesco Cirillo in the late 1980s.
         The technique uses a timer to break down work into intervals of 25 minutes separated by 5 minute breaks.
