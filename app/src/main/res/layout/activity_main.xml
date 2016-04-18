@@ -6,24 +6,20 @@
     tools:context="dit.assignment3.Timer">
 
     <Button
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:textSize="26sp"
-        android:text="CANCEL"
-        android:id="@+id/cancelButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:textSize="50sp"
-        android:id="@+id/timeView"
-        android:layout_alignParentTop="true"
+        android:text="Normal Timer"
+        android:id="@+id/go2Timer"
+        android:layout_above="@+id/go2Pomodoro"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp" />
+        android:layout_marginBottom="142dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POMODORO Method"
+        android:id="@+id/go2Pomodoro"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="170dp" />
 </RelativeLayout>

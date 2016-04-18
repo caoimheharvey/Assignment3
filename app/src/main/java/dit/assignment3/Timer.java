@@ -1,6 +1,5 @@
 package dit.assignment3;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -8,24 +7,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
+
+/*
+ * TODO: Notifications
+ * TODO: ALERT DIALOG
+ * TODO: get the timer to appear right
+ */
 
 public class Timer extends AppCompatActivity {
 
     //ALARM SOUND
     MediaPlayer alarmSound;
 
-    //small button minutes
     Button ten, twenty, thirty, sixty;
-
-    Button startBtn, stopBtn;
+    Button startBtn, cancelBtn;
     EditText minIn, hoursIn;
-    int minMs, hoursMs;
+    TableLayout table1, table2;
 
+    TextView timeDisp;
     //additional variables to make timer work
+    int minMs, hoursMs;
     public int totalTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,12 @@ public class Timer extends AppCompatActivity {
         //media
         alarmSound = MediaPlayer.create(this, R.raw.alarm_noise);
 
+        /*
+         * Declaring countdown timer
+         * Has to be in array form. el 0 is the actual timer and el 1 is the size of the array
+         */
+        final CounterClass[] timer = new CounterClass[1];
+
        //finding by ID
         ten = (Button) findViewById(R.id.tenMin);
         twenty = (Button) findViewById(R.id.twentyMin);
@@ -42,11 +56,15 @@ public class Timer extends AppCompatActivity {
         sixty = (Button) findViewById(R.id.sixtyMin);
 
         startBtn = (Button) findViewById(R.id.startButton);
+        cancelBtn = (Button) findViewById(R.id.cancelButton);
 
         hoursIn = (EditText) findViewById(R.id.hoursInput);
         minIn = (EditText) findViewById(R.id.minsInput);
 
-        //Parsing to correct value
+        table1 = (TableLayout) findViewById(R.id.inputTable);
+        table2 = (TableLayout) findViewById(R.id.numberTable);
+
+        timeDisp = (TextView) findViewById(R.id.timeleftdisp);
 
         //changing times through smaller buttons
         ten.setOnClickListener(new View.OnClickListener() {
@@ -110,10 +128,36 @@ public class Timer extends AppCompatActivity {
                 }
                 else
                 {
+                    //change visibility of objects
+                    //hide the tables
+                    table1.setVisibility(View.GONE);
+                    table2.setVisibility(View.GONE);
+
+                    //change the start button to a cancel button
+                    startBtn.setVisibility(View.GONE);
+                    cancelBtn.setVisibility(View.VISIBLE);
+                    timeDisp.setVisibility(View.VISIBLE);
+
                     //start timer
-                    final CounterClass1 timer = new CounterClass1(totalTime, 1000);
-                    timer.start();
+                    timer[0] = new CounterClass(3000, 1000);
+                    timer[0].start();
                 }
+            }
+        });
+
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timer[0].cancel();
+                table1.setVisibility(View.VISIBLE);
+                table2.setVisibility(View.VISIBLE);
+
+                //change the start button to a cancel button
+                startBtn.setVisibility(View.VISIBLE);
+                cancelBtn.setVisibility(View.GONE);
+                timeDisp.setVisibility(View.GONE);
+
             }
         });
     }
@@ -133,13 +177,8 @@ public class Timer extends AppCompatActivity {
         return  millis;
     }
 
-    private void nextPage()
-    {
-        Intent intent = new Intent(this, Timer.class);
-        startActivity(intent);
-    }
 
-    public class CounterClass1 extends CountDownTimer {
+    public class CounterClass extends CountDownTimer {
 
         /**
          * @param millisInFuture    The number of millis in the future from the call
@@ -148,7 +187,7 @@ public class Timer extends AppCompatActivity {
          * @param countDownInterval The interval along the way to receive
          *                          {@link #onTick(long)} callbacks.
          */
-        public CounterClass1(long millisInFuture, long countDownInterval) {
+        public CounterClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
 
@@ -158,14 +197,19 @@ public class Timer extends AppCompatActivity {
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
 
-
-            //timeDisp.setText(hms);
+            timeDisp.setText(hms);
         }
 
         @Override
         public void onFinish() {
+            table1.setVisibility(View.VISIBLE);
+            table2.setVisibility(View.VISIBLE);
+
+            //change the start button to a cancel button
+            startBtn.setVisibility(View.VISIBLE);
+            cancelBtn.setVisibility(View.GONE);
+            timeDisp.setVisibility(View.GONE);
             alarmSound.start();
         }
     }
 }
-

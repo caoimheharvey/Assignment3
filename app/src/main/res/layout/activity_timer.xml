@@ -14,12 +14,10 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/bg3"
         android:scaleType="fitXY" />
-<!-- STOP BUTTON-->
 
     <!-- START BUTTON-->
-
     <Button
-        android:layout_width="175dp"
+        android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:text="START"
         android:textSize="26sp"
@@ -42,7 +40,8 @@
         android:layout_alignEnd="@+id/startButton"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:id="@+id/inputTable">
 
         <TableRow
             android:layout_width="match_parent"
@@ -109,7 +108,8 @@
         android:layout_above="@+id/startButton"
         android:layout_marginTop="370dp"
         android:layout_marginBottom="50dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/numberTable">
 
         <TableRow
             android:layout_width="match_parent"
@@ -157,6 +157,35 @@
                 android:background="#bcc76b7b" />
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="60sp"
+        android:visibility="gone"
+        android:id="@+id/timeleftdisp"
+        android:layout_marginTop="300dp"
+        android:layout_alignBottom="@+id/inputTable"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="CANCEL"
+        android:visibility="gone"
+        android:textSize="26sp"
+        android:id="@+id/cancelButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
