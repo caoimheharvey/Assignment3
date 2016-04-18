@@ -13,6 +13,7 @@ public class aboutPomodoro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_pomodoro);
 
+
         back = (Button) findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

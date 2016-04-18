@@ -241,12 +241,16 @@ public class Timer extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            String hms = String.format("%02d:%02d:%02d",
+            /*String hms = String.format("%02d:%02d:%02d",
                     TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));*/
+            int hours   = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
 
-            timeDisp.setText(hms);
+            timeDisp.setText(""+String.format("%02d:%02d:%02d", hours,
+                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
         }
 
         @Override

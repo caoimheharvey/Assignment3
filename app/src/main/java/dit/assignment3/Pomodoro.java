@@ -50,7 +50,7 @@ public class Pomodoro extends AppCompatActivity {
         five = 300000;
 
         //twenty-five minutes in milliseconds
-        twentyFive = five * five;
+        twentyFive = 1500000;
 
         p_alert = new AlertDialog.Builder(Pomodoro.this);
         p_alert.setCancelable(false)
@@ -69,11 +69,9 @@ public class Pomodoro extends AppCompatActivity {
             public void onClick(View v) {
                 if (control == true) {
                     t[0] = new PomodoroTimer(twentyFive, 1000);
-                    Log.i("CHY", "25 seconds");
                     control = false;
                 } else {
                     t[0] = new PomodoroTimer(five, 1000);
-                    Log.i("CHY", "5 seconds");
                     control = true;
                 }
                 startButton.setVisibility(View.GONE);
@@ -88,6 +86,14 @@ public class Pomodoro extends AppCompatActivity {
                 t[0].cancel();
                 startButton.setVisibility(View.VISIBLE);
                 cancelButton.setVisibility(View.GONE);
+                if (control == true)
+                {
+                    timeView.setText("25:00");
+                }
+                else
+                {
+                    timeView.setText("05:00");
+                }
                 timeView.setText("25:00");
             }
         });
@@ -113,9 +119,11 @@ public class Pomodoro extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            String ms = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
-            timeView.setText(ms);
+
+            timeView.setText("" + String.format("%d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
         }
 
         @Override
