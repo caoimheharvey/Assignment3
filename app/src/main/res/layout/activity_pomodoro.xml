@@ -61,4 +61,15 @@
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About the Pomodoro Method"
+        android:id="@+id/go2About"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/timeView"
+        android:layout_alignLeft="@+id/timeView"
+        android:layout_alignStart="@+id/timeView"
+        android:background="#79404040" />
+
 </RelativeLayout>

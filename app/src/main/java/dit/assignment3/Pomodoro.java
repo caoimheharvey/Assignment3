@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Pomodoro extends AppCompatActivity {
 
-    Button startButton, cancelButton;
+    Button startButton, cancelButton, about;
 
     long five, twentyFive;
 
@@ -39,6 +39,7 @@ public class Pomodoro extends AppCompatActivity {
         startButton = (Button) findViewById(R.id.pStartBtn);
         cancelButton = (Button) findViewById(R.id.pStopBtn);
         cancelButton.setVisibility(View.GONE);
+        about = (Button) findViewById(R.id.go2About);
 
         timeView = (TextView) findViewById(R.id.timeView);
         timeView.setText("25:00");
@@ -54,12 +55,12 @@ public class Pomodoro extends AppCompatActivity {
         p_alert = new AlertDialog.Builder(Pomodoro.this);
         p_alert.setCancelable(false)
             .setPositiveButton("Move onto the next step", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                pAlarm.stop();
-                dialog.dismiss();
-            }
-        });
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    pAlarm.stop();
+                    dialog.dismiss();
+                }
+            });
 
         final PomodoroTimer[] t = new PomodoroTimer[1];
 
@@ -90,8 +91,20 @@ public class Pomodoro extends AppCompatActivity {
                 timeView.setText("25:00");
             }
         });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                go2About();
+            }
+        });
     }
 
+    private void go2About()
+    {
+        Intent i = new Intent(this, aboutPomodoro.class);
+        startActivity(i);
+    }
     private class PomodoroTimer extends CountDownTimer{
 
         public PomodoroTimer(long millisInFuture, long countDownInterval) {
