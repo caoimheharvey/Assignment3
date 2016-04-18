@@ -10,8 +10,13 @@ import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 public class Pomodoro extends AppCompatActivity {
 
@@ -22,6 +27,8 @@ public class Pomodoro extends AppCompatActivity {
     MediaPlayer pAlarm;
     AlertDialog.Builder p_alert;
 
+    TextView timeView;
+
     boolean control;
 
     @Override
@@ -31,6 +38,11 @@ public class Pomodoro extends AppCompatActivity {
 
         startButton = (Button) findViewById(R.id.pStartBtn);
         cancelButton = (Button) findViewById(R.id.pStopBtn);
+        cancelButton.setVisibility(View.GONE);
+
+        timeView = (TextView) findViewById(R.id.timeView);
+        timeView.setText("25:00");
+
 
         control = true;
         //five minutes in milliseconds
@@ -49,19 +61,33 @@ public class Pomodoro extends AppCompatActivity {
             }
         });
 
+        final PomodoroTimer[] t = new PomodoroTimer[1];
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(control)
-                {
-                    PomodoroTimer t = new PomodoroTimer(twentyFive, 1000);
-                    control = !control;
+                if (control == true) {
+                    t[0] = new PomodoroTimer(twentyFive, 1000);
+                    Log.i("CHY", "25 seconds");
+                    control = false;
+                } else {
+                    t[0] = new PomodoroTimer(five, 1000);
+                    Log.i("CHY", "5 seconds");
+                    control = true;
                 }
-                else
-                {
-                    PomodoroTimer t = new PomodoroTimer(five, 1000);
-                    control =! control;
-                }
+                startButton.setVisibility(View.GONE);
+                cancelButton.setVisibility(View.VISIBLE);
+                t[0].start();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                t[0].cancel();
+                startButton.setVisibility(View.VISIBLE);
+                cancelButton.setVisibility(View.GONE);
+                timeView.setText("25:00");
             }
         });
     }
@@ -74,16 +100,28 @@ public class Pomodoro extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-
+            String ms = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
+            timeView.setText(ms);
         }
 
         @Override
         public void onFinish() {
-            pAlarm = MediaPlayer.create(Pomodoro.this,R.raw.Beep);
+            pAlarm = MediaPlayer.create(Pomodoro.this,R.raw.beep);
             pAlarm.start();
+            cancelButton.setVisibility(View.GONE);
+            startButton.setVisibility(View.VISIBLE);
 
             AlertDialog alert = p_alert.create();
             alert.setTitle("Pomodoro is done");
+            if (control == true)
+            {
+                timeView.setText("25:00");
+            }
+            else
+            {
+                timeView.setText("05:00");
+            }
             alert.show();
         }
     }

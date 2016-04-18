@@ -19,27 +19,24 @@
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:text="START"
+        android:visibility="visible"
         android:textSize="20sp"
         android:id="@+id/pStartBtn"
-        android:layout_marginBottom="85dp"
-        android:layout_marginRight="67dp"
-        android:layout_marginEnd="67dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:text="STOP"
+        android:visibility="gone"
         android:id="@+id/pStopBtn"
         android:textSize="20sp"
-        android:layout_alignTop="@+id/pStartBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="49dp"
-        android:layout_marginStart="49dp" />
+        android:layout_marginBottom="96dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,8 +54,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="60sp"
-        android:text="25:00"
-        android:id="@+id/textView3"
+        android:text=""
+        android:id="@+id/timeView"
         android:layout_marginTop="67dp"
         android:layout_below="@+id/timeLeft"
         android:layout_centerHorizontal="true"

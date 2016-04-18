@@ -29,7 +29,7 @@ public class Timer extends AppCompatActivity {
     MediaPlayer alarmSound;
 
     Button ten, twenty, thirty, sixty;
-    private Button startBtn, cancelBtn;
+    private Button startBtn, cancelBtn, demoButton;
     EditText minIn, hoursIn;
     TableLayout table1, table2;
 
@@ -59,7 +59,6 @@ public class Timer extends AppCompatActivity {
                     }
                 });
 
-
         /*
          * Declaring countdown timer
          * Has to be in array form. el 0 is the actual timer and el 1 is the size of the array
@@ -72,6 +71,7 @@ public class Timer extends AppCompatActivity {
         thirty = (Button) findViewById(R.id.thirtyMin);
         sixty = (Button) findViewById(R.id.sixtyMin);
 
+        demoButton = (Button) findViewById(R.id.demobutton);
         startBtn = (Button) findViewById(R.id.startButton);
         cancelBtn = (Button) findViewById(R.id.cancelButton);
 
@@ -166,6 +166,7 @@ public class Timer extends AppCompatActivity {
                     startBtn.setVisibility(View.GONE);
                     cancelBtn.setVisibility(View.VISIBLE);
                     timeDisp.setVisibility(View.VISIBLE);
+                    demoButton.setVisibility(View.GONE);
 
                     //start timer
                     timer[0] = new CounterClass(totalTime, 1000);
@@ -174,6 +175,24 @@ public class Timer extends AppCompatActivity {
             }
         });
 
+        demoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalTime = 15000;
+                table1.setVisibility(View.GONE);
+                table2.setVisibility(View.GONE);
+
+                //change the start button to a cancel button
+                startBtn.setVisibility(View.GONE);
+                cancelBtn.setVisibility(View.VISIBLE);
+                timeDisp.setVisibility(View.VISIBLE);
+                demoButton.setVisibility(View.GONE);
+
+                //start timer
+                timer[0] = new CounterClass(totalTime, 1000);
+                timer[0].start();
+            }
+        });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +205,7 @@ public class Timer extends AppCompatActivity {
                 startBtn.setVisibility(View.VISIBLE);
                 cancelBtn.setVisibility(View.GONE);
                 timeDisp.setVisibility(View.GONE);
-
+                demoButton.setVisibility(View.VISIBLE);
             }
         });
     }

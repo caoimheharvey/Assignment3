@@ -3,23 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dit.assignment3.Timer">
+    tools:context="dit.assignment3.Timer"
+    android:background="#002859">
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
         android:text="Normal Timer"
         android:id="@+id/go2Timer"
         android:layout_above="@+id/go2Pomodoro"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="142dp" />
+        android:layout_marginBottom="142dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#67ffffff" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:text="POMODORO Method"
         android:id="@+id/go2Pomodoro"
+        android:textColor="#f5f5f5"
+        android:textSize="20sp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="170dp" />
+        android:layout_marginBottom="170dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#67ffffff" />
+
 </RelativeLayout>
