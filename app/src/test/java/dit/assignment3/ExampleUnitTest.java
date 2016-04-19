@@ -1,4 +1,4 @@
-package dit.assignment3;
+package dit.studytimer;
 
 import org.junit.Test;
 

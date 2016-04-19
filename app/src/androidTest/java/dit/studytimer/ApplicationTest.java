@@ -1,4 +1,4 @@
-package dit.assignment3;
+package dit.studytimer;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

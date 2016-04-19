@@ -1,4 +1,4 @@
-package dit.assignment3;
+package dit.studytimer;
 
 import android.app.AlertDialog;
 import android.app.NotificationManager;
@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;

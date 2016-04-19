@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dit.assignment3.Timer"
+    tools:context="dit.studytimer.Timer"
     android:background="#002859">
 
     <Button

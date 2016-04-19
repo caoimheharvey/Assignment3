@@ -2,7 +2,7 @@
     OOP-Video: https://youtu.be/cgYL19X5zms
  */
 
-package dit.assignment3;
+package dit.studytimer;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
