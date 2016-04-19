@@ -3,16 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dit.assignment3.Pomodoro">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/pomodoro2"
-        android:scaleType="fitXY" />
+    tools:context="dit.assignment3.Pomodoro"
+    android:background="@drawable/pomodoro2">
 
     <Button
         style="?android:attr/buttonStyleSmall"
