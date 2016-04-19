@@ -11,7 +11,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:text="START"
+        android:text="@string/start_button"
         android:textSize="26sp"
         android:id="@+id/startButton"
         android:layout_alignParentBottom="true"
@@ -168,7 +168,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:text="CANCEL"
+        android:text="@string/cancel_button"
         android:visibility="gone"
         android:background="#bb191f42"
         android:textSize="26sp"
