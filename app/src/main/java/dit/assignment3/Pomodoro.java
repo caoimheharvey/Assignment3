@@ -31,10 +31,28 @@ public class Pomodoro extends AppCompatActivity {
 
     boolean control;
 
+    NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.small_icon)
+                    .setContentTitle("Study Timer")
+                    .setContentText("Your Pomodoro timer is done!");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pomodoro);
+
+        //notification
+        Intent resultIntent = new Intent(this, Main_Activity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+
 
         startButton = (Button) findViewById(R.id.pStartBtn);
         cancelButton = (Button) findViewById(R.id.pStopBtn);
@@ -144,6 +162,13 @@ public class Pomodoro extends AppCompatActivity {
                 timeView.setText("05:00");
             }
             alert.show();
+
+            int mNotificationId = 002;
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
         }
     }
 }

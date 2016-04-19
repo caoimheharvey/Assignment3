@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -35,14 +36,14 @@ public class Timer extends AppCompatActivity {
 
     TextView timeDisp;
     //additional variables to make timer work
-    int minMs, hoursMs;
-    int totalTime;
+    long minMs, hoursMs;
+    long totalTime;
 
     NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.small_icon)
-                    .setContentTitle("My notification")
-                    .setContentText("Hello World!");
+                    .setContentTitle("Study Timer")
+                    .setContentText("Your timer is done!");
 
     // Alert Dialog
     AlertDialog.Builder a_builder;
@@ -142,7 +143,7 @@ public class Timer extends AppCompatActivity {
                         Toast.makeText(Timer.this, "Hours must be between 0 and 11", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        hoursMs = hrsToMils(intTime);
+                        hoursMs = TimeUnit.HOURS.toMillis(intTime);
                     }
                 }
                 else
@@ -157,7 +158,7 @@ public class Timer extends AppCompatActivity {
                         Toast.makeText(Timer.this, "Minutes must be between 0 and 59", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        minMs = minToMils(intTime);
+                        minMs = TimeUnit.MINUTES.toMillis(intTime);
                     }
                 }
                 else
@@ -226,21 +227,6 @@ public class Timer extends AppCompatActivity {
         });
     }
 
-    private int hrsToMils(int hours)
-    {
-        int minutes = hours * 60;
-        int seconds = minutes * 60;
-        int millis = seconds * 1000;
-        return  millis;
-    }
-
-    private  int minToMils(int mins)
-    {
-        int seconds = mins * 60;
-        int millis = seconds * 1000;
-        return  millis;
-    }
-
 
     private class CounterClass extends CountDownTimer {
 
@@ -259,7 +245,7 @@ public class Timer extends AppCompatActivity {
         public void onTick(long millisUntilFinished) {
             int hours   = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
 
-            timeDisp.setText(""+String.format("%02d:%02d:%02d", hours,
+            timeDisp.setText("" + String.format("%02d:%02d:%02d", hours,
                     TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
